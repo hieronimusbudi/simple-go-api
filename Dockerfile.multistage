@@ -1,0 +1,22 @@
+FROM golang:1.21.1 AS build-stage
+
+WORKDIR /app
+
+COPY . ./
+
+RUN make build
+
+FROM alpine:latest AS run-stage
+
+ENV NAME=gathering_app
+
+WORKDIR /app
+
+COPY --from=build-stage ./app/$NAME ./$NAME
+COPY --from=build-stage ./app/.env ./.env
+
+EXPOSE 3000
+
+RUN chmod +x ./$NAME
+
+CMD ["./gathering_app"]

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  gathering-app:
+    depends_on:
+      - mysql-db
+    build:
+      context: .
+      dockerfile: Dockerfile.multistage
+    container_name: rest-server
+    hostname: rest-server
+    networks:
+      - mynet
+    ports:
+      - 3000:3000
+    deploy:
+      restart_policy:
+        condition: on-failure
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    networks:
+      - mynet
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - 3306:3306
+    volumes:
+      - './internal/data/data.sql:/docker-entrypoint-initdb.d/data.sql'
+
+networks:
+  mynet:
+    driver: bridge

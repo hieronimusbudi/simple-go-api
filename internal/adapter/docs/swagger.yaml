@@ -1,0 +1,532 @@
+definitions:
+  helpers.ResponsePayload:
+    properties:
+      data: {}
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  swaggermodel.Gathering:
+    properties:
+      attendees:
+        items:
+          $ref: '#/definitions/swaggermodel.MemberPayload'
+        type: array
+      creator:
+        $ref: '#/definitions/swaggermodel.MemberPayload'
+      id:
+        type: integer
+      location:
+        example: gathering street
+        type: string
+      name:
+        example: Gathering Name
+        type: string
+      scheduled_at:
+        description: Date using (YYYY-MM-DD MM:SS) format
+        example: 2023-10-06 04:53
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/valueobject.GatheringType'
+        description: |-
+          Gathering type
+          * 0 -> Private
+          * 1 -> Public
+        example: 1
+    required:
+    - creator
+    - location
+    - name
+    - scheduled_at
+    - type
+    type: object
+  swaggermodel.GatheringPayload:
+    properties:
+      id:
+        example: 1
+        type: integer
+    required:
+    - id
+    type: object
+  swaggermodel.Invitation:
+    properties:
+      created_at:
+        type: string
+      gathering:
+        $ref: '#/definitions/swaggermodel.GatheringPayload'
+      id:
+        type: integer
+      member:
+        $ref: '#/definitions/swaggermodel.MemberPayload'
+      status:
+        allOf:
+        - $ref: '#/definitions/valueobject.InvitationStatus'
+        description: |-
+          Invitation status
+          * 0 -> Created
+          * 1 -> Accepted
+          * 2 -> Rejected
+          * 3 -> Cancelled
+    required:
+    - gathering
+    - member
+    type: object
+  swaggermodel.Member:
+    properties:
+      email:
+        example: john@mail.com
+        type: string
+      first_name:
+        example: John
+        type: string
+      id:
+        type: integer
+      last_name:
+        example: Doe
+        type: string
+    required:
+    - email
+    - first_name
+    type: object
+  swaggermodel.MemberPayload:
+    properties:
+      id:
+        example: 1
+        type: integer
+    required:
+    - id
+    type: object
+  swaggermodel.UpdateGathering:
+    properties:
+      location:
+        example: gathering street
+        type: string
+      name:
+        example: Gathering Name
+        type: string
+      scheduled_at:
+        description: Date using (YYYY-MM-DD MM:SS) format
+        example: 2023-10-06 04:53
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/valueobject.GatheringType'
+        description: |-
+          Gathering type
+          * 0 -> Private
+          * 1 -> Public
+        example: 1
+    required:
+    - location
+    - name
+    - scheduled_at
+    - type
+    type: object
+  valueobject.GatheringType:
+    enum:
+    - 0
+    - 1
+    type: integer
+    x-enum-varnames:
+    - PRIVATE
+    - PUBLIC
+  valueobject.InvitationStatus:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    type: integer
+    x-enum-varnames:
+    - INVITATION_CREATED
+    - INVITATION_ACCEPT
+    - INVITATION_REJECT
+    - INVITATION_CANCELED
+info:
+  contact: {}
+  description: |-
+    # Introduction
+    This is documentation for Gathering App API
+  title: Gathering App API
+  version: v1.0.0
+paths:
+  /gatherings:
+    get:
+      consumes:
+      - application/json
+      description: Get Gatherings
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gathering
+          schema:
+            items:
+              allOf:
+              - $ref: '#/definitions/helpers.ResponsePayload'
+              - properties:
+                  data:
+                    $ref: '#/definitions/swaggermodel.Gathering'
+                type: object
+            type: array
+      summary: Get Gatherings
+      tags:
+      - Gathering
+    post:
+      consumes:
+      - application/json
+      description: Create Gathering
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/swaggermodel.Gathering'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gathering
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Gathering'
+              type: object
+      summary: Create Gathering
+      tags:
+      - Gathering
+  /gatherings/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Gathering
+      parameters:
+      - description: Gathering ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gathering
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Delete Gathering
+      tags:
+      - Gathering
+    get:
+      consumes:
+      - application/json
+      description: Get Gathering By ID
+      parameters:
+      - description: Gathering ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gathering
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Gathering'
+              type: object
+      summary: Get Gathering By ID
+      tags:
+      - Gathering
+    put:
+      consumes:
+      - application/json
+      description: Update Gathering
+      parameters:
+      - description: Gathering ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/swaggermodel.UpdateGathering'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gathering
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Update Gathering
+      tags:
+      - Gathering
+  /invitations:
+    get:
+      consumes:
+      - application/json
+      description: Get Invitations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            items:
+              allOf:
+              - $ref: '#/definitions/helpers.ResponsePayload'
+              - properties:
+                  data:
+                    $ref: '#/definitions/swaggermodel.Invitation'
+                type: object
+            type: array
+      summary: Get Invitations
+      tags:
+      - Invitation
+    post:
+      consumes:
+      - application/json
+      description: Create Invitation
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/swaggermodel.Invitation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Invitation'
+              type: object
+      summary: Create Invitation
+      tags:
+      - Invitation
+  /invitations/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get Invitation By ID
+      parameters:
+      - description: Invitation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Invitation'
+              type: object
+      summary: Get Invitation By ID
+      tags:
+      - Invitation
+  /invitations/{id}/accept:
+    put:
+      consumes:
+      - application/json
+      description: Accept Invitation
+      parameters:
+      - description: Invitation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Accept Invitation
+      tags:
+      - Invitation
+  /invitations/{id}/cancel:
+    put:
+      consumes:
+      - application/json
+      description: Cancel Invitation, will remove member from attendee list
+      parameters:
+      - description: Invitation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Cancel Invitation
+      tags:
+      - Invitation
+  /invitations/{id}/reject:
+    put:
+      consumes:
+      - application/json
+      description: Reject Invitation, used by member to reject the invitation
+      parameters:
+      - description: Invitation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Invitation
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Reject Invitation
+      tags:
+      - Invitation
+  /members:
+    get:
+      consumes:
+      - application/json
+      description: Get Members
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member
+          schema:
+            items:
+              allOf:
+              - $ref: '#/definitions/helpers.ResponsePayload'
+              - properties:
+                  data:
+                    $ref: '#/definitions/swaggermodel.Member'
+                type: object
+            type: array
+      summary: Get Members
+      tags:
+      - Member
+    post:
+      consumes:
+      - application/json
+      description: Create Member
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/swaggermodel.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Member'
+              type: object
+      summary: Create Member
+      tags:
+      - Member
+  /members/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Member
+      parameters:
+      - description: Member ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Delete Member
+      tags:
+      - Member
+    get:
+      consumes:
+      - application/json
+      description: Get Member By ID
+      parameters:
+      - description: member ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.ResponsePayload'
+            - properties:
+                data:
+                  $ref: '#/definitions/swaggermodel.Member'
+              type: object
+      summary: Get Member By ID
+      tags:
+      - Member
+    put:
+      consumes:
+      - application/json
+      description: Update Member
+      parameters:
+      - description: Member ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/swaggermodel.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Member
+          schema:
+            $ref: '#/definitions/helpers.ResponsePayload'
+      summary: Update Member
+      tags:
+      - Member
+swagger: "2.0"

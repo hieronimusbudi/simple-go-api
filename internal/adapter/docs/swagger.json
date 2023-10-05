@@ -1,0 +1,819 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "# Introduction\nThis is documentation for Gathering App API",
+        "title": "Gathering App API",
+        "contact": {},
+        "version": "v1.0.0"
+    },
+    "paths": {
+        "/gatherings": {
+            "get": {
+                "description": "Get Gatherings",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gathering"
+                ],
+                "summary": "Get Gatherings",
+                "responses": {
+                    "200": {
+                        "description": "Gathering",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/helpers.ResponsePayload"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "$ref": "#/definitions/swaggermodel.Gathering"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Gathering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gathering"
+                ],
+                "summary": "Create Gathering",
+                "parameters": [
+                    {
+                        "description": "Payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/swaggermodel.Gathering"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gathering",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Gathering"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/gatherings/{id}": {
+            "get": {
+                "description": "Get Gathering By ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gathering"
+                ],
+                "summary": "Get Gathering By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Gathering ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gathering",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Gathering"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Gathering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gathering"
+                ],
+                "summary": "Update Gathering",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Gathering ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/swaggermodel.UpdateGathering"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gathering",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Gathering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gathering"
+                ],
+                "summary": "Delete Gathering",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Gathering ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gathering",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/invitations": {
+            "get": {
+                "description": "Get Invitations",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Get Invitations",
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/helpers.ResponsePayload"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "$ref": "#/definitions/swaggermodel.Invitation"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Invitation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Create Invitation",
+                "parameters": [
+                    {
+                        "description": "Payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/swaggermodel.Invitation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Invitation"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/invitations/{id}": {
+            "get": {
+                "description": "Get Invitation By ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Get Invitation By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Invitation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Invitation"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/invitations/{id}/accept": {
+            "put": {
+                "description": "Accept Invitation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Accept Invitation",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Invitation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/invitations/{id}/cancel": {
+            "put": {
+                "description": "Cancel Invitation, will remove member from attendee list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Cancel Invitation",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Invitation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/invitations/{id}/reject": {
+            "put": {
+                "description": "Reject Invitation, used by member to reject the invitation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Reject Invitation",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Invitation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/members": {
+            "get": {
+                "description": "Get Members",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Get Members",
+                "responses": {
+                    "200": {
+                        "description": "Member",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/helpers.ResponsePayload"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "$ref": "#/definitions/swaggermodel.Member"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Member",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Create Member",
+                "parameters": [
+                    {
+                        "description": "Payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/swaggermodel.Member"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Member"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/members/{id}": {
+            "get": {
+                "description": "Get Member By ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Get Member By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "member ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helpers.ResponsePayload"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/swaggermodel.Member"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Member",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Update Member",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Member ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/swaggermodel.Member"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Member",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Delete Member",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Member ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "helpers.ResponsePayload": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
+        "swaggermodel.Gathering": {
+            "type": "object",
+            "required": [
+                "creator",
+                "location",
+                "name",
+                "scheduled_at",
+                "type"
+            ],
+            "properties": {
+                "attendees": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/swaggermodel.MemberPayload"
+                    }
+                },
+                "creator": {
+                    "$ref": "#/definitions/swaggermodel.MemberPayload"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string",
+                    "example": "gathering street"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Gathering Name"
+                },
+                "scheduled_at": {
+                    "description": "Date using (YYYY-MM-DD MM:SS) format",
+                    "type": "string",
+                    "example": "2023-10-06 04:53"
+                },
+                "type": {
+                    "description": "Gathering type\n* 0 -\u003e Private\n* 1 -\u003e Public",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/valueobject.GatheringType"
+                        }
+                    ],
+                    "example": 1
+                }
+            }
+        },
+        "swaggermodel.GatheringPayload": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "swaggermodel.Invitation": {
+            "type": "object",
+            "required": [
+                "gathering",
+                "member"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "gathering": {
+                    "$ref": "#/definitions/swaggermodel.GatheringPayload"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "member": {
+                    "$ref": "#/definitions/swaggermodel.MemberPayload"
+                },
+                "status": {
+                    "description": "Invitation status\n* 0 -\u003e Created\n* 1 -\u003e Accepted\n* 2 -\u003e Rejected\n* 3 -\u003e Cancelled",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/valueobject.InvitationStatus"
+                        }
+                    ]
+                }
+            }
+        },
+        "swaggermodel.Member": {
+            "type": "object",
+            "required": [
+                "email",
+                "first_name"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "john@mail.com"
+                },
+                "first_name": {
+                    "type": "string",
+                    "example": "John"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "last_name": {
+                    "type": "string",
+                    "example": "Doe"
+                }
+            }
+        },
+        "swaggermodel.MemberPayload": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "swaggermodel.UpdateGathering": {
+            "type": "object",
+            "required": [
+                "location",
+                "name",
+                "scheduled_at",
+                "type"
+            ],
+            "properties": {
+                "location": {
+                    "type": "string",
+                    "example": "gathering street"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Gathering Name"
+                },
+                "scheduled_at": {
+                    "description": "Date using (YYYY-MM-DD MM:SS) format",
+                    "type": "string",
+                    "example": "2023-10-06 04:53"
+                },
+                "type": {
+                    "description": "Gathering type\n* 0 -\u003e Private\n* 1 -\u003e Public",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/valueobject.GatheringType"
+                        }
+                    ],
+                    "example": 1
+                }
+            }
+        },
+        "valueobject.GatheringType": {
+            "type": "integer",
+            "enum": [
+                0,
+                1
+            ],
+            "x-enum-varnames": [
+                "PRIVATE",
+                "PUBLIC"
+            ]
+        },
+        "valueobject.InvitationStatus": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "x-enum-varnames": [
+                "INVITATION_CREATED",
+                "INVITATION_ACCEPT",
+                "INVITATION_REJECT",
+                "INVITATION_CANCELED"
+            ]
+        }
+    }
+}
